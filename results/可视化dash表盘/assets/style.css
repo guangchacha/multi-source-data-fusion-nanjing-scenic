@@ -1,0 +1,288 @@
+/* 1. 全局基础样式：统一色调和字体 */
+:root {
+    /* 主色调：南京蓝（理性、数据感）+ 辅助色（情感区分） */
+    --primary: #2689b7e2;    /* 主蓝（导航、按钮） */
+    --primary-light: #eff6ff; /* 浅蓝（背景、卡片） */
+    --success: #10b981;    /* 正面情感绿 */
+    --warning: #f59e0b;    /* 中性情感黄 */
+    --danger: #ef4444;     /* 负面情感红 */
+    --gray-100: #f3f4f6;   /* 浅灰（页面背景） */
+    --gray-800: #eef2f7;   /* 深灰（标题文字） */
+    --gray-500: #3d434e;   /* 中灰（正文文字） */
+    --white: #ffffff;      /* 白色（卡片背景） */
+    /* 尺寸变量：统一间距 */
+    --padding-sm: 12px;
+    --padding-md: 20px;
+    --padding-lg: 28px;
+    --border-radius: 12px; /* 大圆角（现代感） */
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* 柔和阴影 */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* 避免padding撑大元素 */
+}
+
+
+/* 添加背景图片和透明遮罩 */
+body {
+    /* 设置背景图片 */
+    background-image: url("./emotion_bg.jpg");
+    /* 背景图片相关设置 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    /* 添加黑色透明遮罩 */
+    position: relative;
+    font-family: "Inter", "Microsoft YaHei", "SimHei", sans-serif; /* 现代无衬线字体 */
+    color: var(--gray-800);
+    line-height: 1.6;
+    /* 确保内容适应视窗高度 */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 在body内部创建一个伪元素作为遮罩层 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* 30%黑色透明度 */
+    z-index: -1; /* 确保遮罩在内容下方 */
+}
+
+/* 主容器设置，确保内容自适应 */
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+/* 2. 标题样式：层级分明 */
+h1 {
+    font-size: 28px !important;
+    font-weight: 700;
+    color: var(--gray-800);
+    margin: 0 0 var(--padding-md) 0 !important;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+
+h3 {
+    font-size: 20px !important;
+    font-weight: 600;
+    color: var(--gray-800);
+    margin: 0 0 var(--padding-sm) 0 !important;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 图标与文字间距 */
+}
+
+
+h3 svg {
+    width: 22px;
+    height: 22px;
+    color: var(--primary);
+}
+
+
+p, li {
+    font-size: 15px;
+    color: var(--gray-500);
+    margin-bottom: 8px !important;
+}
+
+
+/* 3. 导航栏美化：高质感+交互反馈 */
+.navbar {
+    background-color: var(--primary) !important;
+    padding: 14px var(--padding-lg) !important;
+    box-shadow: var(--shadow);
+    border-bottom: none !important;
+    flex-shrink: 0; /* 防止导航栏被压缩 */
+}
+
+
+.navbar .brand {
+    font-size: 18px !important;
+    font-weight: 600;
+    color: var(--white) !important;
+}
+
+
+.navbar .nav-link {
+    color: var(--white) !important;
+    font-size: 15px;
+    padding: 8px 16px !important;
+    margin: 0 4px;
+    border-radius: 6px; /* 圆角 hover 背景 */
+    transition: all 0.2s ease; /* 平滑过渡 */
+}
+
+
+.navbar .nav-link:hover, .navbar .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.15); /* hover 半透明背景 */
+    color: var(--white) !important;
+}
+
+
+/* 4. 卡片组件：核心容器美化（所有内容用卡片包裹） */
+.card {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    padding: var(--padding-md);
+    margin-bottom: var(--padding-md);
+    border: none !important;
+    transition: box-shadow 0.3s ease; /* hover 阴影加深 */
+    /* 添加自适应属性 */
+    flex: 1;
+    min-height: fit-content;
+    max-height: calc(100vh - 200px); /* 防止卡片过高 */
+    overflow-y: auto; /* 内容过多时允许滚动 */
+}
+
+
+.card:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+
+/* 5. 图表容器：突出图表内容 */
+.graph-card {
+    padding: var(--padding-sm);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-card .dcc-graph {
+    width: 100%;
+    flex: 1;
+    min-height: 300px; /* 最小高度 */
+    max-height: 500px; /* 最大高度 */
+}
+
+/* 确保图表容器内的图形自适应 */
+.dcc-graph > div {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 6. 列表和文本美化（首页专用） */
+.feature-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+
+.feature-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+
+.feature-list li::before {
+    content: "✓";
+    color: var(--primary);
+    font-weight: 700;
+    margin-top: 2px;
+}
+
+/* 页面内容容器 */
+.page-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: var(--padding-md);
+    width: 100%;
+    max-width: 100vw;
+    overflow: hidden;
+}
+
+/* 确保页面内容自适应 */
+.content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+/* 7. 响应式适配：手机端不拥挤 */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 12px var(--padding-sm) !important;
+    }
+    
+    .navbar .nav-link {
+        padding: 6px 12px !important;
+        font-size: 14px;
+    }
+    
+    h1 {
+        font-size: 24px !important;
+    }
+    
+    h3 {
+        font-size: 18px !important;
+    }
+    
+    .card {
+        padding: var(--padding-sm);
+        max-height: calc(100vh - 150px);
+    }
+    
+    .graph-card .dcc-graph {
+        height: 300px; /* 手机端缩小图表高度 */
+    }
+    
+    .page-content {
+        padding: var(--padding-sm);
+    }
+}
+
+/* 强制所有内容适应视窗高度的额外样式 */
+.viewport-fitting {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+.viewport-fitting > * {
+    flex: 1;
+    overflow: hidden;
+}
+
+.two-column-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  justify-items: center;
+  align-items: start;
+  padding: 20px;
+}
+
+.image-card {
+  text-align: center;
+}
+
+.wide-card {
+  grid-column: span 2;
+}
